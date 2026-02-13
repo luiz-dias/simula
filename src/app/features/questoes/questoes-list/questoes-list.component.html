@@ -1,0 +1,66 @@
+<div class="page-header">
+  <div>
+    <div class="page-title">Questões</div>
+    <div class="page-subtitle">Gerencie o banco de questões</div>
+  </div>
+  <button mat-raised-button color="primary" routerLink="/questoes/novo">
+    Nova questão
+  </button>
+</div>
+
+<mat-card>
+  <mat-card-content>
+    <div class="grid grid-3">
+      <mat-form-field appearance="outline">
+        <mat-label>Matéria</mat-label>
+        <input matInput placeholder="Ex: Constitucional" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Banca</mat-label>
+        <input matInput placeholder="Ex: Cebraspe" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Ano</mat-label>
+        <input matInput type="number" placeholder="Ex: 2024" />
+      </mat-form-field>
+    </div>
+
+    <table mat-table [dataSource]="questoes" class="full-width">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let questao">{{ questao.id }}</td>
+      </ng-container>
+      <ng-container matColumnDef="materia">
+        <th mat-header-cell *matHeaderCellDef>Matéria</th>
+        <td mat-cell *matCellDef="let questao">{{ questao.materia }}</td>
+      </ng-container>
+      <ng-container matColumnDef="assunto">
+        <th mat-header-cell *matHeaderCellDef>Assunto</th>
+        <td mat-cell *matCellDef="let questao">{{ questao.assunto }}</td>
+      </ng-container>
+      <ng-container matColumnDef="banca">
+        <th mat-header-cell *matHeaderCellDef>Banca</th>
+        <td mat-cell *matCellDef="let questao">{{ questao.banca }}</td>
+      </ng-container>
+      <ng-container matColumnDef="ano">
+        <th mat-header-cell *matHeaderCellDef>Ano</th>
+        <td mat-cell *matCellDef="let questao">{{ questao.ano }}</td>
+      </ng-container>
+      <ng-container matColumnDef="acoes">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell *matCellDef="let questao">
+          <div class="table-actions">
+            <button mat-icon-button color="primary" [routerLink]="['/questoes', questao.id]">
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" [routerLink]="['/questoes/novo']">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </mat-card-content>
+</mat-card>

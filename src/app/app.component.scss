@@ -1,0 +1,65 @@
+.app-shell {
+  height: 100vh;
+}
+
+.app-sidenav {
+  width: 280px;
+  padding: 16px 12px;
+  background: #f7f7fb;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 8px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  margin-bottom: 16px;
+}
+
+.brand-title {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.brand-subtitle {
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.nav-section {
+  margin-bottom: 16px;
+}
+
+.nav-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.5);
+  padding: 0 12px 6px;
+}
+
+a.active-link {
+  background: rgba(63, 81, 181, 0.12);
+  border-radius: 8px;
+}
+
+.app-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.toolbar-title {
+  font-weight: 600;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.app-content {
+  padding: 24px;
+  min-height: calc(100vh - 64px);
+  background: #f4f6fb;
+}

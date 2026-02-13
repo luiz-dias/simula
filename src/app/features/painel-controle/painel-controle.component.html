@@ -1,0 +1,20 @@
+<div class="page-header">
+  <div>
+    <div class="page-title">Painel de Controle</div>
+    <div class="page-subtitle">Acesso rápido às principais telas</div>
+  </div>
+</div>
+
+<div class="grid grid-3">
+  <mat-card *ngFor="let atalho of atalhos" class="control-card">
+    <mat-card-content>
+      <mat-icon>{{ atalho.icon }}</mat-icon>
+      <div class="control-text">
+        <div class="control-title">{{ atalho.label }}</div>
+        <button mat-stroked-button color="primary" [routerLink]="atalho.path">
+          Abrir
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

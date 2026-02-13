@@ -1,0 +1,109 @@
+<div class="page-header">
+  <div>
+    <div class="page-title">Criar/Editar Questão</div>
+    <div class="page-subtitle">Preencha todas as informações da questão</div>
+  </div>
+</div>
+
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="form" class="form-grid">
+      <mat-form-field appearance="outline" class="span-2">
+        <mat-label>Enunciado</mat-label>
+        <textarea matInput rows="4" formControlName="enunciado"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Alternativa A</mat-label>
+        <input matInput formControlName="alternativaA" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Alternativa B</mat-label>
+        <input matInput formControlName="alternativaB" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Alternativa C</mat-label>
+        <input matInput formControlName="alternativaC" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Alternativa D</mat-label>
+        <input matInput formControlName="alternativaD" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Alternativa E</mat-label>
+        <input matInput formControlName="alternativaE" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Resposta correta</mat-label>
+        <mat-select formControlName="respostaCorreta">
+          <mat-option value="A">A</mat-option>
+          <mat-option value="B">B</mat-option>
+          <mat-option value="C">C</mat-option>
+          <mat-option value="D">D</mat-option>
+          <mat-option value="E">E</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Matéria</mat-label>
+        <mat-select formControlName="materia">
+          <mat-option *ngFor="let materia of materias" [value]="materia.nome">
+            {{ materia.nome }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Assunto</mat-label>
+        <mat-select formControlName="assunto">
+          <mat-option *ngFor="let assunto of assuntos" [value]="assunto.nome">
+            {{ assunto.nome }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Tópico</mat-label>
+        <mat-select formControlName="topico">
+          <mat-option *ngFor="let topico of topicos" [value]="topico.nome">
+            {{ topico.nome }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Órgão</mat-label>
+        <mat-select formControlName="orgao">
+          <mat-option *ngFor="let orgao of orgaos" [value]="orgao.sigla">
+            {{ orgao.nome }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Banca</mat-label>
+        <mat-select formControlName="banca">
+          <mat-option *ngFor="let banca of bancas" [value]="banca.nome">
+            {{ banca.nome }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Cargo</mat-label>
+        <mat-select formControlName="cargo">
+          <mat-option *ngFor="let cargo of cargos" [value]="cargo.nome">
+            {{ cargo.nome }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Ano</mat-label>
+        <input matInput type="number" formControlName="ano" />
+      </mat-form-field>
+    </form>
+
+    <div class="form-actions">
+      <button mat-stroked-button routerLink="/questoes">Cancelar</button>
+      <button mat-raised-button color="primary">Salvar</button>
+    </div>
+  </mat-card-content>
+</mat-card>

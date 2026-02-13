@@ -1,0 +1,29 @@
+<div class="page-header">
+  <div>
+    <div class="page-title">Criar/Editar Cargo</div>
+    <div class="page-subtitle">Informações do cargo</div>
+  </div>
+</div>
+
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="form" class="form-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="nome" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Órgão</mat-label>
+        <mat-select formControlName="orgao">
+          <mat-option *ngFor="let orgao of orgaos" [value]="orgao.sigla">
+            {{ orgao.nome }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+    <div class="form-actions">
+      <button mat-stroked-button routerLink="/cargos">Cancelar</button>
+      <button mat-raised-button color="primary">Salvar</button>
+    </div>
+  </mat-card-content>
+</mat-card>

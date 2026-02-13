@@ -1,0 +1,55 @@
+import { Routes } from '@angular/router';
+import { AssuntosFormComponent } from './features/assuntos/assuntos-form/assuntos-form.component';
+import { AssuntosListComponent } from './features/assuntos/assuntos-list/assuntos-list.component';
+import { BackupExportComponent } from './features/backup/backup-export/backup-export.component';
+import { BancasFormComponent } from './features/bancas/bancas-form/bancas-form.component';
+import { BancasListComponent } from './features/bancas/bancas-list/bancas-list.component';
+import { CargosFormComponent } from './features/cargos/cargos-form/cargos-form.component';
+import { CargosListComponent } from './features/cargos/cargos-list/cargos-list.component';
+import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { MateriasFormComponent } from './features/materias/materias-form/materias-form.component';
+import { MateriasListComponent } from './features/materias/materias-list/materias-list.component';
+import { MontarSimuladoComponent } from './features/montar-simulado/montar-simulado.component';
+import { OrgaosFormComponent } from './features/orgaos/orgaos-form/orgaos-form.component';
+import { OrgaosListComponent } from './features/orgaos/orgaos-list/orgaos-list.component';
+import { PainelControleComponent } from './features/painel-controle/painel-controle.component';
+import { QuestoesFormComponent } from './features/questoes/questoes-form/questoes-form.component';
+import { QuestoesListComponent } from './features/questoes/questoes-list/questoes-list.component';
+import { QuestoesViewComponent } from './features/questoes/questoes-view/questoes-view.component';
+import { SimuladosListComponent } from './features/simulados/simulados-list/simulados-list.component';
+import { SimuladosViewComponent } from './features/simulados/simulados-view/simulados-view.component';
+import { TopicosFormComponent } from './features/topicos/topicos-form/topicos-form.component';
+import { TopicosListComponent } from './features/topicos/topicos-list/topicos-list.component';
+import { VisaoCompletaComponent } from './features/visao-completa/visao-completa.component';
+
+export const routes: Routes = [
+  { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'visao-completa', component: VisaoCompletaComponent },
+  { path: 'montar-simulado', component: MontarSimuladoComponent },
+  { path: 'painel-controle', component: PainelControleComponent },
+  { path: 'questoes', component: QuestoesListComponent },
+  { path: 'questoes/novo', component: QuestoesFormComponent },
+  { path: 'questoes/:id', component: QuestoesViewComponent },
+  { path: 'materias', component: MateriasListComponent },
+  { path: 'materias/novo', component: MateriasFormComponent },
+  { path: 'materias/:id', component: MateriasFormComponent },
+  { path: 'assuntos', component: AssuntosListComponent },
+  { path: 'assuntos/novo', component: AssuntosFormComponent },
+  { path: 'assuntos/:id', component: AssuntosFormComponent },
+  { path: 'topicos', component: TopicosListComponent },
+  { path: 'topicos/novo', component: TopicosFormComponent },
+  { path: 'topicos/:id', component: TopicosFormComponent },
+  { path: 'orgaos', component: OrgaosListComponent },
+  { path: 'orgaos/novo', component: OrgaosFormComponent },
+  { path: 'orgaos/:id', component: OrgaosFormComponent },
+  { path: 'bancas', component: BancasListComponent },
+  { path: 'bancas/novo', component: BancasFormComponent },
+  { path: 'bancas/:id', component: BancasFormComponent },
+  { path: 'cargos', component: CargosListComponent },
+  { path: 'cargos/novo', component: CargosFormComponent },
+  { path: 'cargos/:id', component: CargosFormComponent },
+  { path: 'simulados', component: SimuladosListComponent },
+  { path: 'simulados/:id', component: SimuladosViewComponent },
+  { path: 'backup', component: BackupExportComponent }
+];
