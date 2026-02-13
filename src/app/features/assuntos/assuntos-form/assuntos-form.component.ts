@@ -1,7 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { MockService } from '../../../data/mock.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Materia } from '../../../models/entities';
 import { COMMON_IMPORTS, FORM_IMPORTS, MATERIAL_IMPORTS } from '../../../shared/ui';
+import { MateriasApiService } from '../../materias/services/materias-api.service';
+import { AssuntosService } from '../services/assuntos.service';
 
 @Component({
   selector: 'app-assuntos-form',
@@ -9,18 +12,53 @@ import { COMMON_IMPORTS, FORM_IMPORTS, MATERIAL_IMPORTS } from '../../../shared/
   templateUrl: './assuntos-form.component.html',
   styleUrl: './assuntos-form.component.scss'
 })
-export class AssuntosFormComponent {
+export class AssuntosFormComponent implements OnInit {
   private readonly formBuilder = inject(FormBuilder);
-  private readonly mockService = inject(MockService);
+  private readonly assuntosService = inject(AssuntosService);
+  private readonly materiasApi = inject(MateriasApiService);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
 
-  materias: ReturnType<MockService['getMaterias']>;
+  materias: Materia[] = [];
+  id: number | null = null;
 
   form = this.formBuilder.group({
     nome: [''],
-    materia: ['']
+    materiaId: [null as number | null]
   });
 
-  constructor() {
-    this.materias = this.mockService.getMaterias();
+  ngOnInit(): void {
+    this.materiasApi.listar().subscribe((res) => {
+      this.materias = res.content;
+    });
+
+    const idParam = this.route.snapshot.paramMap.get('id');
+    if (idParam) {
+      this.id = Number(idParam);
+      this.assuntosService.buscarPorId(this.id).subscribe({
+        next: (assunto) => {
+          this.form.patchValue({
+            nome: assunto.nome,
+            materiaId: assunto.materiaId
+          });
+        },
+        error: (err) => console.error('Erro ao carregar assunto', err)
+      });
+    }
+  }
+
+  salvar(): void {
+    const nome = this.form.get('nome')?.value?.trim();
+    const materiaId = this.form.get('materiaId')?.value;
+    if (!nome || materiaId == null) return;
+
+    const request = this.id
+      ? this.assuntosService.atualizar(this.id, { nome, materiaId })
+      : this.assuntosService.criar({ nome, materiaId });
+
+    request.subscribe({
+      next: () => this.router.navigate(['/assuntos']),
+      error: (err) => console.error('Erro ao salvar assunto', err)
+    });
   }
 }

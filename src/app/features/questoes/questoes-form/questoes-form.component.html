@@ -103,7 +103,12 @@
 
     <div class="form-actions">
       <button mat-stroked-button routerLink="/questoes">Cancelar</button>
-      <button mat-raised-button color="primary">Salvar</button>
+      <button mat-raised-button color="primary" type="button" (click)="salvarEmMemoria()">
+        Salvar em memória
+      </button>
+      <button mat-raised-button color="accent" type="button" (click)="salvarNoLocalStorage()">
+        Salvar no localStorage
+      </button>
     </div>
   </mat-card-content>
 </mat-card>

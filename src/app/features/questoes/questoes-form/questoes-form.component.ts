@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MockService } from '../../../data/mock.service';
+import { Questao } from '../../../models/entities';
 import { COMMON_IMPORTS, FORM_IMPORTS, MATERIAL_IMPORTS } from '../../../shared/ui';
 
 @Component({
@@ -43,6 +44,45 @@ export class QuestoesFormComponent {
       banca: [''],
       cargo: [''],
       ano: [2024]
+    });
+  }
+
+  salvarEmMemoria() {
+    const questao = this.buildQuestaoPayload();
+    this.mockService.addQuestao(questao);
+    this.resetForm();
+  }
+
+  salvarNoLocalStorage() {
+    const questao = this.buildQuestaoPayload();
+    this.mockService.addQuestaoToLocalStorage(questao);
+    this.resetForm();
+  }
+
+  private buildQuestaoPayload(): Omit<Questao, 'id'> {
+    const value = this.form.getRawValue();
+    return {
+      ...value,
+      ano: Number(value.ano)
+    };
+  }
+
+  private resetForm() {
+    this.form.reset({
+      enunciado: '',
+      alternativaA: '',
+      alternativaB: '',
+      alternativaC: '',
+      alternativaD: '',
+      alternativaE: '',
+      respostaCorreta: 'A',
+      materia: '',
+      assunto: '',
+      topico: '',
+      orgao: '',
+      banca: '',
+      cargo: '',
+      ano: 2024
     });
   }
 }

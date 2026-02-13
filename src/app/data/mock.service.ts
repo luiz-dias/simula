@@ -12,16 +12,17 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class MockService {
+  private readonly questoesStorageKey = 'questoes';
   private readonly materias: Materia[] = [
-    { id: 1, nome: 'Direito Constitucional', descricao: 'Princípios e direitos' },
-    { id: 2, nome: 'Direito Administrativo', descricao: 'Administração pública' },
-    { id: 3, nome: 'Português', descricao: 'Gramática e interpretação' }
+    { id: 1, nome: 'Direito Constitucional', createdAt: '', updatedAt: '' },
+    { id: 2, nome: 'Direito Administrativo', createdAt: '', updatedAt: '' },
+    { id: 3, nome: 'Português', createdAt: '', updatedAt: '' }
   ];
 
   private readonly assuntos: Assunto[] = [
-    { id: 1, nome: 'Controle de Constitucionalidade', materia: 'Direito Constitucional' },
-    { id: 2, nome: 'Atos Administrativos', materia: 'Direito Administrativo' },
-    { id: 3, nome: 'Interpretação de Texto', materia: 'Português' }
+    { id: 1, nome: 'Controle de Constitucionalidade', materiaId: 1, materia: { id: 1, nome: 'Direito Constitucional', createdAt: '', updatedAt: '' }, createdAt: '', updatedAt: '' },
+    { id: 2, nome: 'Atos Administrativos', materiaId: 2, materia: { id: 2, nome: 'Direito Administrativo', createdAt: '', updatedAt: '' }, createdAt: '', updatedAt: '' },
+    { id: 3, nome: 'Interpretação de Texto', materiaId: 3, materia: { id: 3, nome: 'Português', createdAt: '', updatedAt: '' }, createdAt: '', updatedAt: '' }
   ];
 
   private readonly topicos: Topico[] = [
@@ -140,6 +141,54 @@ export class MockService {
 
   getQuestoes() {
     return this.questoes;
+  }
+
+  addQuestao(questao: Omit<Questao, 'id'>) {
+    const novaQuestao: Questao = {
+      id: this.getNextQuestaoId(this.questoes),
+      ...questao
+    };
+    this.questoes.push(novaQuestao);
+    return novaQuestao;
+  }
+
+  getQuestoesFromLocalStorage() {
+    if (typeof localStorage === 'undefined') {
+      return [];
+    }
+
+    const data = localStorage.getItem(this.questoesStorageKey);
+    if (!data) {
+      return [];
+    }
+
+    try {
+      return JSON.parse(data) as Questao[];
+    } catch {
+      return [];
+    }
+  }
+
+  addQuestaoToLocalStorage(questao: Omit<Questao, 'id'>) {
+    if (typeof localStorage === 'undefined') {
+      return null;
+    }
+
+    const existentes = this.getQuestoesFromLocalStorage();
+    const novaQuestao: Questao = {
+      id: this.getNextQuestaoId(existentes),
+      ...questao
+    };
+    const atualizadas = [...existentes, novaQuestao];
+    localStorage.setItem(this.questoesStorageKey, JSON.stringify(atualizadas));
+    return novaQuestao;
+  }
+
+  private getNextQuestaoId(questoes: Questao[]) {
+    if (!questoes.length) {
+      return 1;
+    }
+    return Math.max(...questoes.map((questao) => questao.id)) + 1;
   }
 
   getSimulados() {

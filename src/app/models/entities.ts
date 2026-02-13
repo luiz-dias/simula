@@ -1,3 +1,22 @@
+export interface PageResponse<T> {
+  content: T[];
+  pageable: {
+    pageNumber: number;
+    pageSize: number;
+    offset: number;
+    paged: boolean;
+    unpaged: boolean;
+  };
+  last: boolean;
+  totalElements: number;
+  totalPages: number;
+  first: boolean;
+  size: number;
+  number: number;
+  numberOfElements: number;
+  empty: boolean;
+}
+
 export interface Questao {
   id: number;
   enunciado: string;
@@ -19,13 +38,17 @@ export interface Questao {
 export interface Materia {
   id: number;
   nome: string;
-  descricao: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Assunto {
   id: number;
   nome: string;
-  materia: string;
+  materiaId: number;
+  materia: Materia;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Topico {
