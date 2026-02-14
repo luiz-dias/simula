@@ -1,4 +1,5 @@
 import { Materia } from './materia';
+
 // ** deixar como vem do backend
 export interface AssuntoResponseDTO {
   id: number;
