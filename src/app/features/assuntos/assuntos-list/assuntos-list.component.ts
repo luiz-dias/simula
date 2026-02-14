@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { MockService } from '../../../data/mock.service';
-import { Assunto } from '../../../models/entities';
+import { AssuntoResponseDTO } from '../../../models/entities';
 import { COMMON_IMPORTS, MATERIAL_IMPORTS } from '../../../shared/ui';
 import { AssuntosService } from '../services/assuntos.service';
 
@@ -11,7 +10,7 @@ import { AssuntosService } from '../services/assuntos.service';
   styleUrl: './assuntos-list.component.scss'
 })
 export class AssuntosListComponent {
-  assuntos: Assunto[] = [];
+  assuntos: AssuntoResponseDTO[] = [];
   displayedColumns = ['id', 'nome', 'materia', 'acoes'];
 
   constructor(private readonly assuntosService: AssuntosService) {}
@@ -21,14 +20,14 @@ export class AssuntosListComponent {
   }
 
   carregar(): void {
-    this.assuntosService.listar().subscribe((res) => {
-      this.assuntos = res.content;
+    this.assuntosService.listar().subscribe((assuntos) => {
+      this.assuntos = assuntos;
     });
   }
 
-  deletar(assunto: Assunto): void {
+  deletar(assunto: AssuntoResponseDTO): void {
     if (!confirm(`Excluir o assunto "${assunto.nome}"?`)) return;
-    this.assuntosService.excluir(assunto.id).subscribe({
+    this.assuntosService.deletar(assunto.id).subscribe({
       next: () => this.carregar(),
       error: (err) => console.error('Erro ao excluir assunto', err)
     });

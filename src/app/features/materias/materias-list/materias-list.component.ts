@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MateriasApiService } from '../services/materias-api.service';
-import { Materia } from '../../../models/entities';
+import { MateriaResponseDTO } from '../../../models/entities';
 import { COMMON_IMPORTS, MATERIAL_IMPORTS } from '../../../shared/ui';
+import { MateriaService } from '../services/materia.service';
 
 @Component({
   selector: 'app-materias-list',
@@ -10,14 +10,14 @@ import { COMMON_IMPORTS, MATERIAL_IMPORTS } from '../../../shared/ui';
   styleUrl: './materias-list.component.scss'
 })
 export class MateriasListComponent implements OnInit {
-  materias: Materia[] = [];
+  materias: MateriaResponseDTO[] = [];
   displayedColumns = ['id', 'nome', 'acoes'];
 
-  constructor(private readonly materiasApi: MateriasApiService) {}
+  constructor(private readonly materiaService: MateriaService) {}
 
   ngOnInit(): void {
-    this.materiasApi.listar().subscribe((res) => {
-      this.materias = res.content;
+    this.materiaService.listar().subscribe((materias) => {
+      this.materias = materias;
     });
   }
 }

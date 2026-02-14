@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Materia } from '../../../models/entities';
 import { COMMON_IMPORTS, FORM_IMPORTS, MATERIAL_IMPORTS } from '../../../shared/ui';
-import { MateriasApiService } from '../../materias/services/materias-api.service';
+import { MateriaService } from '../../materias/services/materia.service';
 import { AssuntosService } from '../services/assuntos.service';
 
 @Component({
@@ -15,7 +15,7 @@ import { AssuntosService } from '../services/assuntos.service';
 export class AssuntosFormComponent implements OnInit {
   private readonly formBuilder = inject(FormBuilder);
   private readonly assuntosService = inject(AssuntosService);
-  private readonly materiasApi = inject(MateriasApiService);
+  private readonly materiaService = inject(MateriaService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
@@ -28,8 +28,8 @@ export class AssuntosFormComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.materiasApi.listar().subscribe((res) => {
-      this.materias = res.content;
+    this.materiaService.listar().subscribe((materias) => {
+      this.materias = materias;
     });
 
     const idParam = this.route.snapshot.paramMap.get('id');

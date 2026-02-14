@@ -1,33 +1,44 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Assunto, PageResponse } from '../../../models/entities';
-
-const API_URL = 'http://localhost:8080/api/assuntos';
+import { map } from 'rxjs/operators';
+import {
+  AssuntoResponseDTO,
+  AssuntoRequestDTO,
+  PageResponse
+} from '../../../models/entities';
 
 @Injectable({ providedIn: 'root' })
 export class AssuntosService {
+  private readonly apiUrl = 'http://localhost:8080/api/assuntos';
+
   constructor(private readonly http: HttpClient) {}
 
-  listar(page = 0, size = 20): Observable<PageResponse<Assunto>> {
-    return this.http.get<PageResponse<Assunto>>(API_URL, {
-      params: { page: String(page), size: String(size) }
-    });
+
+  listar(): Observable<AssuntoResponseDTO[]> {
+    return this.http
+      .get<PageResponse<AssuntoResponseDTO>>(this.apiUrl, {
+        params: { page: '0', size: '100' }
+      })
+      .pipe(map((res) => res.content));
   }
 
-  buscarPorId(id: number): Observable<Assunto> {
-    return this.http.get<Assunto>(`${API_URL}/${id}`);
+
+  buscarPorId(id: number): Observable<AssuntoResponseDTO> {
+    return this.http.get<AssuntoResponseDTO>(`${this.apiUrl}/${id}`);
   }
 
-  criar(payload: { nome: string; materiaId: number }): Observable<Assunto> {
-    return this.http.post<Assunto>(API_URL, payload);
+  criar(dto: AssuntoRequestDTO): Observable<AssuntoResponseDTO> {
+    return this.http.post<AssuntoResponseDTO>(this.apiUrl, dto);
   }
 
-  atualizar(id: number, payload: { nome: string; materiaId: number }): Observable<Assunto> {
-    return this.http.put<Assunto>(`${API_URL}/${id}`, payload);
+
+  atualizar(id: number, dto: AssuntoRequestDTO): Observable<AssuntoResponseDTO> {
+    return this.http.put<AssuntoResponseDTO>(`${this.apiUrl}/${id}`, dto);
   }
 
-  excluir(id: number): Observable<void> {
-    return this.http.delete<void>(`${API_URL}/${id}`);
+
+  deletar(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
