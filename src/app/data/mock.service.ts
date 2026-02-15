@@ -26,9 +26,9 @@ export class MockService {
   ];
 
   private readonly topicos: Topico[] = [
-    { id: 1, nome: 'ADI e ADC', assunto: 'Controle de Constitucionalidade' },
-    { id: 2, nome: 'Anulação e Revogação', assunto: 'Atos Administrativos' },
-    { id: 3, nome: 'Coesão e Coerência', assunto: 'Interpretação de Texto' }
+    { id: 1, nome: 'ADI e ADC', assunto: { id: 1, nome: 'Controle de Constitucionalidade', materiaId: 1, materia: { id: 1, nome: 'Direito Constitucional', createdAt: '', updatedAt: '' }, createdAt: '', updatedAt: '' } },
+    { id: 2, nome: 'Anulação e Revogação', assunto: { id: 2, nome: 'Atos Administrativos', materiaId: 2, materia: { id: 2, nome: 'Direito Administrativo', createdAt: '', updatedAt: '' }, createdAt: '', updatedAt: '' } },
+    { id: 3, nome: 'Coesão e Coerência', assunto: { id: 3, nome: 'Interpretação de Texto', materiaId: 3, materia: { id: 3, nome: 'Português', createdAt: '', updatedAt: '' }, createdAt: '', updatedAt: '' } }
   ];
 
   private readonly orgaos: Orgao[] = [

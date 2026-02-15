@@ -44,10 +44,10 @@ export class AssuntosFormComponent implements OnInit {
         },
         error: (err) => console.error('Erro ao carregar assunto', err)
       });
-      });
     }
   }
 
+  /** Chamado pelo (ngSubmit) do formulário. */
   salvar(): void {
     const nome = this.form.get('nome')?.value?.trim();
     const materiaId = this.form.get('materiaId')?.value;

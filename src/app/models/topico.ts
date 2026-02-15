@@ -1,10 +1,11 @@
+import { Assunto } from './assunto';
 /** DTO de resposta (como vem do backend). */
 export interface TopicoResponseDTO {
   id: number;
   nome: string;
   assuntoId?: number;
   /** Nome do assunto (string) ou objeto aninhado. */
-  assunto?: string | { id: number; nome: string };
+  assunto?: Assunto;
   createdAt?: string;
   updatedAt?: string;
 }

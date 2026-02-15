@@ -21,7 +21,8 @@
       </ng-container>
       <ng-container matColumnDef="assunto">
         <th mat-header-cell *matHeaderCellDef>Assunto</th>
-        <td mat-cell *matCellDef="let topico">{{ topico.assunto && (typeof topico.assunto === 'string' ? topico.assunto : topico.assunto.nome) }}</td>
+        <td mat-cell *matCellDef="let topico">{{ topico.assunto?.nome }} | {{ topico.assunto?.materia?.nome }}  </td>
+        <!-- <td mat-cell *matCellDef="let topico">{{ topico.assunto && (typeof topico.assunto === 'string' ? topico.assunto : topico.assunto.nome) }}</td> -->
       </ng-container>
       <ng-container matColumnDef="acoes">
         <th mat-header-cell *matHeaderCellDef>Ações</th>
