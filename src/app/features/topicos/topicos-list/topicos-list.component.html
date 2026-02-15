@@ -31,6 +31,9 @@
             <button mat-icon-button color="primary" [routerLink]="['/topicos', topico.id]">
               <mat-icon>edit</mat-icon>
             </button>
+            <button mat-icon-button color="warn" (click)="deletar(topico)" matTooltip="Excluir">
+              <mat-icon>delete</mat-icon>
+            </button>
           </div>
         </td>
       </ng-container>

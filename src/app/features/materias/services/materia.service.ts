@@ -39,7 +39,8 @@ export class MateriaService {
   }
 
 
-  deletar(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  deletar(id: number, cascade = false): Observable<void> {
+    const params = cascade ? { params: { cascade: 'true' } } : {};
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, params);
   }
 }

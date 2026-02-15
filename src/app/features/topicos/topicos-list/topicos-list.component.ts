@@ -26,7 +26,7 @@ export class TopicosListComponent {
   }
 
   deletar(topico: TopicoResponseDTO): void {
-    if (!confirm(`Excluir o assunto "${topico.nome}"?`)) return;
+    if (!confirm(`Excluir o topico "${topico.nome}"?`)) return;
     this.topicosService.deletar(topico.id).subscribe({
       next: () => this.carregar(),
       error: (err) => console.error('Erro ao excluir topico', err)
