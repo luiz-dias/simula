@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { MockService } from '../../../data/mock.service';
-import { Topico } from '../../../models/entities';
+import { TopicoResponseDTO } from '../../../models/entities';
 import { COMMON_IMPORTS, MATERIAL_IMPORTS } from '../../../shared/ui';
+import { TopicosService } from '../services/topicos.service';
 
 @Component({
   selector: 'app-topicos-list',
@@ -10,10 +10,26 @@ import { COMMON_IMPORTS, MATERIAL_IMPORTS } from '../../../shared/ui';
   styleUrl: './topicos-list.component.scss'
 })
 export class TopicosListComponent {
-  topicos: Topico[];
+
+  topicos: TopicoResponseDTO[] = [];
   displayedColumns = ['id', 'nome', 'assunto', 'acoes'];
 
-  constructor(private readonly mockService: MockService) {
-    this.topicos = this.mockService.getTopicos();
+  constructor(private readonly topicosService: TopicosService) {}
+
+  ngOnInit(): void {
+    this.carregar();
+  }
+  carregar(): void {
+    this.topicosService.listar().subscribe((topicos) => {
+      this.topicos = topicos;
+    });
+  }
+
+  deletar(topico: TopicoResponseDTO): void {
+    if (!confirm(`Excluir o assunto "${topico.nome}"?`)) return;
+    this.topicosService.deletar(topico.id).subscribe({
+      next: () => this.carregar(),
+      error: (err) => console.error('Erro ao excluir topico', err)
+    });
   }
 }

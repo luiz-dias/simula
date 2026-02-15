@@ -44,6 +44,7 @@ export class AssuntosFormComponent implements OnInit {
         },
         error: (err) => console.error('Erro ao carregar assunto', err)
       });
+      });
     }
   }
 
