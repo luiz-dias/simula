@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { Orgao, OrgaoRequestDTO, OrgaoResponseDTO, PageResponse } from '../../../models/entities';
 
-const API_URL = 'http://localhost:8080/api/orgaos';
+
 
 @Injectable({ providedIn: 'root' })
 export class OrgaosService {
@@ -21,10 +21,12 @@ export class OrgaosService {
   }
 
   criar(dto: OrgaoRequestDTO): Observable<OrgaoResponseDTO> {
+    alert("CRIANDO");
     return this.http.post<OrgaoResponseDTO>(this.apiUrl, dto);
   }
 
   atualizar(id: number, dto: OrgaoRequestDTO): Observable<OrgaoResponseDTO> {
+    alert("ATUALIZANDO");
     return this.http.put<OrgaoResponseDTO>(`${this.apiUrl}/${id}`, dto);
   }
 
