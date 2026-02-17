@@ -7,43 +7,89 @@
 
 <mat-card>
   <mat-card-content>
-    <form [formGroup]="form" class="form-grid" (ngSubmit)="salvar()"  >
+    <form [formGroup]="form" class="form-grid" (ngSubmit)="salvar()">
+      <mat-form-field appearance="outline">
+        <mat-label>Tipo de questão</mat-label>
+        <mat-select formControlName="tipoId">
+          <mat-option *ngFor="let tipo of tipos" [value]="tipo.id">
+            {{ tipo.nome }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+     
       <mat-form-field appearance="outline" class="span-2">
         <mat-label>Enunciado</mat-label>
         <textarea matInput rows="4" formControlName="enunciado"></textarea>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Alternativa A</mat-label>
-        <input matInput formControlName="alternativaA" />
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Alternativa B</mat-label>
-        <input matInput formControlName="alternativaB" />
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Alternativa C</mat-label>
-        <input matInput formControlName="alternativaC" />
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Alternativa D</mat-label>
-        <input matInput formControlName="alternativaD" />
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Alternativa E</mat-label>
-        <input matInput formControlName="alternativaE" />
-      </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Resposta correta</mat-label>
-        <mat-select formControlName="respostaCorreta">
-          <mat-option value="A">A</mat-option>
-          <mat-option value="B">B</mat-option>
-          <mat-option value="C">C</mat-option>
-          <mat-option value="D">D</mat-option>
-          <mat-option value="E">E</mat-option>
-        </mat-select>
-      </mat-form-field>
+
+      @if (ehVouF) {
+        <mat-form-field appearance="outline">
+          <mat-label>Resposta correta</mat-label>
+          <mat-select formControlName="respostaCorreta">
+            <mat-option value="A">V (Verdadeiro)</mat-option>
+            <mat-option value="B">F (Falso)</mat-option>
+          </mat-select>
+        </mat-form-field>
+      } @else if (ehMultiplaEscolha4Alternativas) {
+        <mat-form-field appearance="outline">
+          <mat-label>Alternativa A</mat-label>
+          <input matInput formControlName="alternativaA" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Alternativa B</mat-label>
+          <input matInput formControlName="alternativaB" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Alternativa C</mat-label>
+          <input matInput formControlName="alternativaC" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Alternativa D</mat-label>
+          <input matInput formControlName="alternativaD" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Resposta correta</mat-label>
+          <mat-select formControlName="respostaCorreta">
+            <mat-option value="A">A</mat-option>
+            <mat-option value="B">B</mat-option>
+            <mat-option value="C">C</mat-option>
+            <mat-option value="D">D</mat-option>
+          </mat-select>
+        </mat-form-field>
+      } @else if (ehMultiplaEscolha5Alternativas) {
+        <mat-form-field appearance="outline">
+          <mat-label>Alternativa A</mat-label>
+          <input matInput formControlName="alternativaA" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Alternativa B</mat-label>
+          <input matInput formControlName="alternativaB" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Alternativa C</mat-label>
+          <input matInput formControlName="alternativaC" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Alternativa D</mat-label>
+          <input matInput formControlName="alternativaD" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Alternativa E</mat-label>
+          <input matInput formControlName="alternativaE" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Resposta correta</mat-label>
+          <mat-select formControlName="respostaCorreta">
+            <mat-option value="A">A</mat-option>
+            <mat-option value="B">B</mat-option>
+            <mat-option value="C">C</mat-option>
+            <mat-option value="D">D</mat-option>
+            <mat-option value="E">E</mat-option>
+          </mat-select>
+        </mat-form-field>
+      }
 
       <mat-form-field appearance="outline">
         <mat-label>Matéria</mat-label>

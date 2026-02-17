@@ -6,4 +6,5 @@ export type { Topico, TopicoResponseDTO, TopicoRequestDTO } from './topico';
 export type { Orgao, OrgaoResponseDTO, OrgaoRequestDTO } from './orgao';
 export type { Banca, BancaResponseDTO, BancaRequestDTO } from './banca';
 export type { Cargo, CargoResponseDTO, CargoRequestDTO } from './cargo';
-export type { Simulado, SimuladoResponseDTO, SimuladoRequestDTO } from './simulado';
+export type { Simulado, SimuladoResponseDTO, SimuladoRequestDTO, SimuladoItemRequestDTO } from './simulado';
+export type { Tipo, TipoResponseDTO } from './tipo';

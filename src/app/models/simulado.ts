@@ -12,6 +12,15 @@ export interface SimuladoResponseDTO {
   updatedAt?: string;
 }
 
+/** Item de configuração de questões do simulado (matéria / assunto / tópico + quantidade). */
+export interface SimuladoItemRequestDTO {
+  materiaId: number;
+  assuntoId: number | null;
+  topicoId: number | null;
+  quantidadeQuestoes: number;
+  nivel: 'materia' | 'assunto' | 'topico';
+}
+
 /** DTO de entrada (request) para criação e atualização. */
 export interface SimuladoRequestDTO {
   titulo: string;
@@ -19,6 +28,8 @@ export interface SimuladoRequestDTO {
   orgao: string;
   ano: number;
   ordemMaterias: string[];
+  /** Detalhamento por matéria/assunto/tópico com quantidade de questões (opcional no backend). */
+  itens?: SimuladoItemRequestDTO[];
 }
 
 /** Alias para compatibilidade. */

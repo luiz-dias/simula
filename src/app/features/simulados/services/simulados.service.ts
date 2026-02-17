@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Simulado, PageResponse } from '../../../models/entities';
+import { Simulado, SimuladoRequestDTO, PageResponse } from '../../../models/entities';
 
 const API_URL = 'http://localhost:8080/api/simulados';
 
@@ -13,5 +13,9 @@ export class SimuladosService {
     return this.http.get<PageResponse<Simulado>>(API_URL, {
       params: { page: String(page), size: String(size) }
     });
+  }
+
+  criar(dto: SimuladoRequestDTO): Observable<Simulado> {
+    return this.http.post<Simulado>(API_URL, dto);
   }
 }

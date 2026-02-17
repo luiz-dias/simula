@@ -1,7 +1,96 @@
-.order-section {
-  margin-top: 16px;
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.add-materia-row,
+.add-btn-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 16px;
+  flex-wrap: wrap;
+
+  .materia-select {
+    flex: 1;
+    min-width: 200px;
+  }
+}
+
+/* Destaque do nível (por matéria / por assunto / por tópico) no label do campo quantidade */
+.nivel-destaque {
+  font-weight: 600;
+  color: #2e7d32;
+  white-space: nowrap;
+}
+
+.drag-list {
+  min-height: 48px;
+  border: 1px dashed var(--mat-form-field-outline-color, #999);
+  border-radius: 8px;
+  padding: 8px;
+  background: var(--mat-sidenav-container-background-color, #fafafa);
+}
+
+.drag-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  margin-bottom: 6px;
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  cursor: grab;
+  transition: box-shadow 0.2s;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  .cdk-drag-preview & {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .cdk-drag-placeholder {
+    opacity: 0.4;
+  }
+
+  .cdk-drag-animating {
+    transition: transform 0.2s ease;
+  }
+}
+
+.drag-handle {
+  color: #666;
+  cursor: grab;
+  user-select: none;
+}
+
+.drag-label {
+  flex: 1;
+}
+
+.form-actions {
+  margin-top: 8px;
+}
+
+.empty-hint {
+  color: #666;
+  margin: 0;
+  padding: 12px;
+  font-size: 0.9rem;
+}
+
+.quantidade-questoes {
+  width: 250px;   /* ou min-width: 180px; */
 }

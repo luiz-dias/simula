@@ -1,14 +1,14 @@
 <div class="page-header">
   <div>
     <div class="page-title">Montar Simulado</div>
-    <div class="page-subtitle">Selecione filtros e ordene as matérias</div>
+    <div class="page-subtitle">Selecione filtros, matérias/assuntos/tópicos e a quantidade de questões</div>
   </div>
-  <button mat-raised-button color="primary">Gerar DOCX</button>
+  <button type="button" mat-raised-button color="accent">Gerar DOCX</button>
 </div>
 
 <mat-card>
   <mat-card-content>
-    <form [formGroup]="form" class="form-grid">
+    <form [formGroup]="form" class="form-grid" (ngSubmit)="salvar()">
       <mat-form-field appearance="outline">
         <mat-label>Título do simulado</mat-label>
         <input matInput formControlName="titulo" />
@@ -16,46 +16,21 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Órgão</mat-label>
-        <mat-select formControlName="orgao">
-          <mat-option *ngFor="let orgao of orgaos" [value]="orgao.sigla">
-            {{ orgao.nome }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Banca</mat-label>
-        <mat-select formControlName="banca">
-          <mat-option *ngFor="let banca of bancas" [value]="banca.nome">
-            {{ banca.nome }}
-          </mat-option>
+        <mat-select formControlName="orgaoId">
+          <mat-option [value]="null">Selecione</mat-option>
+          @for (orgao of orgaos; track orgao.id) {
+            <mat-option [value]="orgao.id">{{ orgao.nome }} ({{ orgao.sigla }})</mat-option>
+          }
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Cargo</mat-label>
-        <mat-select formControlName="cargo">
-          <mat-option *ngFor="let cargo of cargos" [value]="cargo.nome">
-            {{ cargo.nome }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Assunto</mat-label>
-        <mat-select formControlName="assunto">
-          <mat-option *ngFor="let assunto of assuntos" [value]="assunto.nome">
-            {{ assunto.nome }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Tópico</mat-label>
-        <mat-select formControlName="topico">
-          <mat-option *ngFor="let topico of topicos" [value]="topico.nome">
-            {{ topico.nome }}
-          </mat-option>
+        <mat-select formControlName="cargoId">
+          <mat-option [value]="null">Selecione</mat-option>
+          @for (cargo of cargos; track cargo.id) {
+            <mat-option [value]="cargo.id">{{ cargo.nome }}</mat-option>
+          }
         </mat-select>
       </mat-form-field>
 
@@ -64,37 +39,99 @@
         <input matInput type="number" formControlName="ano" />
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Adicionar matéria</mat-label>
-        <mat-select formControlName="materia">
-          <mat-option *ngFor="let materia of materias" [value]="materia.nome">
-            {{ materia.nome }}
-          </mat-option>
+      <div class="full-width">
+        <strong>Descrição</strong>
+        <p class="page-subtitle">Digite a descrição do simulado (opcional)</p>
+      </div>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Descrição</mat-label>
+        <input matInput formControlName="descricao" />
+      </mat-form-field>
+
+      <div class="full-width">
+        <strong>Conteúdo do simulado</strong>
+        <p class="page-subtitle">
+          Escolha a matéria. Opcionalmente selecione assunto e/ou tópico para refinar.
+          Se não escolher assunto/tópico, as questões serão aleatórias na matéria.
+          Informe a quantidade de questões por matéria, por assunto ou por tópico.
+        </p>
+      </div>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Matéria</mat-label>
+        <mat-select formControlName="materiaId">
+          <mat-option [value]="null">Selecione uma matéria</mat-option>
+          @for (m of materias; track m.id) {
+            <mat-option [value]="m.id">{{ m.nome }}</mat-option>
+          }
         </mat-select>
       </mat-form-field>
-    </form>
 
-    <div class="order-section">
-      <div>
-        <strong>Ordem das matérias</strong>
-        <p class="page-subtitle">Defina a sequência do simulado</p>
-      </div>
-      <button mat-stroked-button color="primary" (click)="addMateria()">
-        Adicionar matéria
-      </button>
-    </div>
+      @if (form.get('materiaId')?.value != null) {
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Assunto (opcional)</mat-label>
+          <mat-select formControlName="assuntoId">
+            <mat-option [value]="null">Qualquer assunto (aleatório na matéria)</mat-option>
+            @for (a of assuntosDaMateria; track a.id) {
+              <mat-option [value]="a.id">{{ a.nome }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      }
 
-    <mat-chip-set class="chip-list">
-      <mat-chip
-        *ngFor="let materia of materiasSelecionadas"
-        removable
-        (removed)="removerMateria(materia)"
-      >
-        {{ materia }}
-        <button matChipRemove>
-          <mat-icon>close</mat-icon>
+      @if (form.get('assuntoId')?.value != null) {
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Tópico (opcional)</mat-label>
+          <mat-select formControlName="topicoId">
+            <mat-option [value]="null">Qualquer tópico (aleatório no assunto)</mat-option>
+            @for (t of topicosDoAssunto; track t.id) {
+              <mat-option [value]="t.id">{{ t.nome }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      }
+
+      <mat-form-field appearance="outline" class="quantidade-questoes">
+        <mat-label>
+          Quantidade de questões
+          <span class="nivel-destaque"> ({{ nivelLabel }})</span>
+        </mat-label>
+        <input matInput type="number" formControlName="quantidadeQuestoes" min="1" />
+      </mat-form-field>
+
+      <div class="add-btn-row full-width">
+        <button type="button" mat-stroked-button color="primary" (click)="addItem()">
+          Adicionar ao simulado
         </button>
-      </mat-chip>
-    </mat-chip-set>
+      </div>
+
+      <div class="full-width">
+        <strong>Ordem dos itens</strong>
+        <p class="page-subtitle">Arraste para reordenar a sequência no simulado</p>
+      </div>
+      <div class="full-width drag-list" cdkDropList (cdkDropListDropped)="drop($event)">
+        @for (item of itens; track item.id) {
+          <div class="drag-item" cdkDrag>
+            <mat-icon cdkDragHandle class="drag-handle">drag_indicator</mat-icon>
+            <span class="drag-label">{{ descricaoItem(item) }}</span>
+            <button
+              type="button"
+              mat-icon-button
+              matTooltip="Remover"
+              (click)="removerItem(item)"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+        }
+        @empty {
+          <p class="empty-hint">Nenhum item adicionado. Selecione matéria (e opcionalmente assunto/tópico) e clique em Adicionar ao simulado.</p>
+        }
+      </div>
+
+      <div class="form-actions full-width">
+        <button type="submit" mat-raised-button color="primary">Salvar simulado</button>
+      </div>
+    </form>
   </mat-card-content>
 </mat-card>
