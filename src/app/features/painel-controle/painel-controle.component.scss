@@ -1,0 +1,15 @@
+.control-card mat-card-content {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.control-text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.control-title {
+  font-weight: 600;
+}

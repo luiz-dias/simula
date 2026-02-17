@@ -1,0 +1,86 @@
+<div class="page-header">
+  <div>
+    <div class="page-title">Visão Completa</div>
+    <div class="page-subtitle">Análise detalhada do banco de questões</div>
+  </div>
+  <button mat-stroked-button color="primary">Gerar relatório</button>
+</div>
+
+<div class="grid grid-4">
+  <mat-card>
+    <mat-card-content class="card-stat">
+      <span class="stat-label">Total de questões</span>
+      <span class="stat-value">{{ stats.totalQuestoes }}</span>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-content class="card-stat">
+      <span class="stat-label">Total de matérias</span>
+      <span class="stat-value">{{ stats.totalMaterias }}</span>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-content class="card-stat">
+      <span class="stat-label">Total de bancas</span>
+      <span class="stat-value">{{ stats.totalBancas }}</span>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-content class="card-stat">
+      <span class="stat-label">Simulados criados</span>
+      <span class="stat-value">{{ stats.totalSimulados }}</span>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div class="grid grid-2" style="margin-top: 20px;">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Distribuição por matéria</mat-card-title>
+      <mat-card-subtitle>Quantidade de questões</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <table mat-table [dataSource]="distribuicao" class="full-width">
+        <ng-container matColumnDef="materia">
+          <th mat-header-cell *matHeaderCellDef>Matéria</th>
+          <td mat-cell *matCellDef="let item">{{ item.materia }}</td>
+        </ng-container>
+        <ng-container matColumnDef="quantidade">
+          <th mat-header-cell *matHeaderCellDef>Questões</th>
+          <td mat-cell *matCellDef="let item">{{ item.quantidade }}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="colunasDistribuicao"></tr>
+        <tr mat-row *matRowDef="let row; columns: colunasDistribuicao"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Tendência do banco</mat-card-title>
+      <mat-card-subtitle>Indicadores de crescimento</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="trend">
+        <div>
+          <strong>Novas questões</strong>
+          <p>+18% no último mês</p>
+        </div>
+        <mat-progress-bar mode="determinate" value="65"></mat-progress-bar>
+      </div>
+      <div class="trend">
+        <div>
+          <strong>Questões revisadas</strong>
+          <p>+10% no último mês</p>
+        </div>
+        <mat-progress-bar mode="determinate" value="48"></mat-progress-bar>
+      </div>
+      <div class="trend">
+        <div>
+          <strong>Distribuição por banca</strong>
+          <p>Maior concentração em Cebraspe</p>
+        </div>
+        <mat-progress-bar mode="determinate" value="72"></mat-progress-bar>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

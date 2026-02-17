@@ -1,0 +1,50 @@
+<div class="page-header">
+  <div>
+    <div class="page-title">Visualizar Simulado</div>
+    <div class="page-subtitle">Detalhes e download do simulado</div>
+  </div>
+  <div class="table-actions">
+    <button mat-stroked-button routerLink="/simulados">Voltar</button>
+    <button mat-raised-button color="primary">Baixar DOCX</button>
+  </div>
+</div>
+
+<mat-card>
+  <mat-card-content>
+    <div class="grid grid-3">
+      <div>
+        <strong>Título</strong>
+        <p>{{ simulado.titulo }}</p>
+      </div>
+      <div>
+        <strong>Órgão</strong>
+        <p>{{ simulado.orgao }}</p>
+      </div>
+      <div>
+        <strong>Cargo</strong>
+        <p>{{ simulado.cargo }}</p>
+      </div>
+      <div>
+        <strong>Ano</strong>
+        <p>{{ simulado.ano }}</p>
+      </div>
+      <div>
+        <strong>Data de criação</strong>
+        <p>{{ simulado.dataCriacao }}</p>
+      </div>
+      <div>
+        <strong>Total de questões</strong>
+        <p>{{ simulado.totalQuestoes }}</p>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div>
+      <strong>Ordem das matérias</strong>
+      <mat-chip-set class="chip-list">
+        <mat-chip *ngFor="let materia of simulado.ordemMaterias">{{ materia }}</mat-chip>
+      </mat-chip-set>
+    </div>
+  </mat-card-content>
+</mat-card>

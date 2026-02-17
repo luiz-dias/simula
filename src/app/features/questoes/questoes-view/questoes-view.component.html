@@ -1,0 +1,57 @@
+<div class="page-header">
+  <div>
+    <div class="page-title">Visualizar Questão</div>
+    <div class="page-subtitle">Detalhes da questão selecionada</div>
+  </div>
+  <button mat-stroked-button routerLink="/questoes">Voltar</button>
+</div>
+
+<mat-card>
+  <mat-card-content>
+    <h3>{{ questao?.enunciado }}</h3>
+    <div class="alternativas">
+      <p>A) {{ questao?.alternativaA }}</p>
+      <p>B) {{ questao?.alternativaB }}</p>
+      <p>C) {{ questao?.alternativaC }}</p>
+      <p>D) {{ questao?.alternativaD }}</p>
+      <p>E) {{ questao?.alternativaE }}</p>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="grid grid-3">
+      <div>
+        <strong>Matéria</strong>
+        <p>{{ questao?.materia?.nome }}</p>
+      </div>
+      <div>
+        <strong>Assunto</strong>
+        <p>{{ questao?.assunto?.nome }}</p>
+      </div>
+      <div>
+        <strong>Tópico</strong>
+        <p>{{ questao?.topico?.nome }}</p>
+      </div>
+      <div>
+        <strong>Órgão</strong>
+        <p>{{ questao?.orgao?.nome }}</p>
+      </div>
+      <div>
+        <strong>Banca</strong>
+        <p>{{ questao?.banca?.nome }}</p>
+      </div>
+      <div>
+        <strong>Cargo</strong>
+        <p>{{ questao?.cargo?.nome }}</p>
+      </div>
+      <div>
+        <strong>Ano</strong>
+        <p>{{ questao?.ano }}</p>
+      </div>
+      <div>
+        <strong>Resposta correta</strong>
+        <p>{{ questao?.respostaCorreta }}</p>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

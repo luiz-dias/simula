@@ -1,0 +1,38 @@
+<div class="page-header">
+  <div>
+    <div class="page-title">Backup e Exportação</div>
+    <div class="page-subtitle">Exporte questões e simulados em CSV</div>
+  </div>
+</div>
+
+<div class="grid grid-2">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Exportar dados</mat-card-title>
+      <mat-card-subtitle>Selecione o tipo de exportação</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Tipo de exportação</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button color="primary">Gerar CSV</button>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Histórico</mat-card-title>
+      <mat-card-subtitle>Últimos backups gerados</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item>Exportação completa - 02/11/2025</mat-list-item>
+        <mat-list-item>Questões - 28/10/2025</mat-list-item>
+        <mat-list-item>Simulados - 15/10/2025</mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>

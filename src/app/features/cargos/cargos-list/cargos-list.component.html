@@ -1,0 +1,43 @@
+<div class="page-header">
+  <div>
+    <div class="page-title">Cargos</div>
+    <div class="page-subtitle">Lista de cargos cadastrados</div>
+  </div>
+  <button mat-raised-button color="primary" routerLink="/cargos/novo">
+    Novo cargo
+  </button>
+</div>
+
+<mat-card>
+  <mat-card-content>
+    <table mat-table [dataSource]="cargos" class="full-width">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let cargo">{{ cargo.id }}</td>
+      </ng-container>
+      <ng-container matColumnDef="nome">
+        <th mat-header-cell *matHeaderCellDef>Nome</th>
+        <td mat-cell *matCellDef="let cargo">{{ cargo.nome }}</td>
+      </ng-container>
+      <ng-container matColumnDef="orgao">
+        <th mat-header-cell *matHeaderCellDef>Órgão</th>
+        <td mat-cell *matCellDef="let cargo">{{ cargo.orgao && (typeof cargo.orgao === 'string' ? cargo.orgao : cargo.orgao.nome) }}</td>
+      </ng-container>
+      <ng-container matColumnDef="acoes">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell *matCellDef="let cargo">
+          <div class="table-actions">
+            <button mat-icon-button color="primary" [routerLink]="['/cargos', cargo.id]">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deletar(cargo)" matTooltip="Excluir">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,76 @@
+<div class="page-header">
+  <div>
+    <div class="page-title">Dashboard</div>
+    <div class="page-subtitle">Resumo geral do sistema de simulados</div>
+  </div>
+  <div class="table-actions">
+    <button mat-raised-button color="primary" routerLink="/questoes/novo">
+      Criar questão
+    </button>
+    <button mat-stroked-button color="primary" routerLink="/montar-simulado">
+      Criar simulado
+    </button>
+  </div>
+</div>
+
+<div class="grid grid-4">
+  <mat-card>
+    <mat-card-content class="card-stat">
+      <span class="stat-label">Questões cadastradas</span>
+      <span class="stat-value">{{ stats.totalQuestoes }}</span>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-content class="card-stat">
+      <span class="stat-label">Simulados criados</span>
+      <span class="stat-value">{{ stats.totalSimulados }}</span>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-content class="card-stat">
+      <span class="stat-label">Bancas cadastradas</span>
+      <span class="stat-value">{{ stats.totalBancas }}</span>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-content class="card-stat">
+      <span class="stat-label">Matérias cadastradas</span>
+      <span class="stat-value">{{ stats.totalMaterias }}</span>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div class="grid grid-2" style="margin-top: 20px;">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Atalhos rápidos</mat-card-title>
+      <mat-card-subtitle>Operações frequentes</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="quick-actions">
+      <button mat-stroked-button routerLink="/questoes">Gerenciar questões</button>
+      <button mat-stroked-button routerLink="/materias">Gerenciar matérias</button>
+      <button mat-stroked-button routerLink="/simulados">Ver simulados</button>
+      <button mat-stroked-button routerLink="/backup">Exportar dados</button>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Indicadores</mat-card-title>
+      <mat-card-subtitle>Últimos 30 dias</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="indicator">
+        <span>Questões criadas</span>
+        <mat-progress-bar mode="determinate" value="72"></mat-progress-bar>
+      </div>
+      <div class="indicator">
+        <span>Simulados montados</span>
+        <mat-progress-bar mode="determinate" value="45"></mat-progress-bar>
+      </div>
+      <div class="indicator">
+        <span>Taxa de revisão</span>
+        <mat-progress-bar mode="determinate" value="60"></mat-progress-bar>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
