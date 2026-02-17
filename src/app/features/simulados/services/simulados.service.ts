@@ -18,4 +18,8 @@ export class SimuladosService {
   criar(dto: SimuladoRequestDTO): Observable<Simulado> {
     return this.http.post<Simulado>(API_URL, dto);
   }
+
+  deletar(id: number): Observable<void> {
+    return this.http.delete<void>(`${API_URL}/${id}`);
+  }
 }
