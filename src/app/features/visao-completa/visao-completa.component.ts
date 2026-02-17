@@ -22,7 +22,9 @@ export class VisaoCompletaComponent {
     this.questoes = this.mockService.getQuestoes();
     this.distribuicao = this.materias.map((materia) => ({
       materia: materia.nome,
-      quantidade: this.questoes.filter((q) => q.materia === materia.nome).length
+      quantidade: this.questoes.filter(
+        (q) => (typeof q.materia === 'string' ? q.materia : q.materia?.nome) === materia.nome
+      ).length
     }));
   }
 }

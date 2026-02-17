@@ -32,15 +32,15 @@
       </ng-container>
       <ng-container matColumnDef="materia">
         <th mat-header-cell *matHeaderCellDef>Matéria</th>
-        <td mat-cell *matCellDef="let questao">{{ questao.materia }}</td>
+        <td mat-cell *matCellDef="let questao">{{ questao.materia.nome }}</td>
       </ng-container>
       <ng-container matColumnDef="assunto">
         <th mat-header-cell *matHeaderCellDef>Assunto</th>
-        <td mat-cell *matCellDef="let questao">{{ questao.assunto }}</td>
+        <td mat-cell *matCellDef="let questao">{{ questao.assunto.nome }}</td>
       </ng-container>
       <ng-container matColumnDef="banca">
         <th mat-header-cell *matHeaderCellDef>Banca</th>
-        <td mat-cell *matCellDef="let questao">{{ questao.banca }}</td>
+        <td mat-cell *matCellDef="let questao">{{ questao.banca.nome }}</td>
       </ng-container>
       <ng-container matColumnDef="ano">
         <th mat-header-cell *matHeaderCellDef>Ano</th>

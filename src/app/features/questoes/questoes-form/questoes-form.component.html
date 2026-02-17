@@ -7,7 +7,7 @@
 
 <mat-card>
   <mat-card-content>
-    <form [formGroup]="form" class="form-grid">
+    <form [formGroup]="form" class="form-grid" (ngSubmit)="salvar()"  >
       <mat-form-field appearance="outline" class="span-2">
         <mat-label>Enunciado</mat-label>
         <textarea matInput rows="4" formControlName="enunciado"></textarea>
@@ -47,24 +47,24 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Matéria</mat-label>
-        <mat-select formControlName="materia">
-          <mat-option *ngFor="let materia of materias" [value]="materia.nome">
+        <mat-select formControlName="materiaId">
+          <mat-option *ngFor="let materia of materias" [value]="materia.id">
             {{ materia.nome }}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Assunto</mat-label>
-        <mat-select formControlName="assunto">
-          <mat-option *ngFor="let assunto of assuntos" [value]="assunto.nome">
+        <mat-select formControlName="assuntoId">
+          <mat-option *ngFor="let assunto of assuntos" [value]="assunto.id">
             {{ assunto.nome }}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Tópico</mat-label>
-        <mat-select formControlName="topico">
-          <mat-option *ngFor="let topico of topicos" [value]="topico.nome">
+        <mat-select formControlName="topicoId">
+          <mat-option *ngFor="let topico of topicos" [value]="topico.id">
             {{ topico.nome }}
           </mat-option>
         </mat-select>
@@ -72,24 +72,24 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Órgão</mat-label>
-        <mat-select formControlName="orgao">
-          <mat-option *ngFor="let orgao of orgaos" [value]="orgao.sigla">
+        <mat-select formControlName="orgaoId">
+          <mat-option *ngFor="let orgao of orgaos" [value]="orgao.id">
             {{ orgao.nome }}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Banca</mat-label>
-        <mat-select formControlName="banca">
-          <mat-option *ngFor="let banca of bancas" [value]="banca.nome">
+        <mat-select formControlName="bancaId">
+          <mat-option *ngFor="let banca of bancas" [value]="banca.id">
             {{ banca.nome }}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Cargo</mat-label>
-        <mat-select formControlName="cargo">
-          <mat-option *ngFor="let cargo of cargos" [value]="cargo.nome">
+        <mat-select formControlName="cargoId">
+          <mat-option *ngFor="let cargo of cargos" [value]="cargo.id">  
             {{ cargo.nome }}
           </mat-option>
         </mat-select>
@@ -99,16 +99,14 @@
         <mat-label>Ano</mat-label>
         <input matInput type="number" formControlName="ano" />
       </mat-form-field>
-    </form>
+  
 
     <div class="form-actions">
       <button mat-stroked-button routerLink="/questoes">Cancelar</button>
-      <button mat-raised-button color="primary" type="button" (click)="salvarEmMemoria()">
-        Salvar em memória
+      <button mat-raised-button color="primary" type="submit">
+        Salvar
       </button>
-      <button mat-raised-button color="accent" type="button" (click)="salvarNoLocalStorage()">
-        Salvar no localStorage
-      </button>
-    </div>
+    </div>  
+  </form>
   </mat-card-content>
 </mat-card>

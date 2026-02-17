@@ -1,3 +1,11 @@
+
+import { Materia, Topico, Orgao, Banca, Cargo } from './entities';
+import { Assunto ,AssuntoResponseDTO } from './assunto';
+import { TopicoResponseDTO } from './topico';
+import { OrgaoResponseDTO } from './orgao';
+import { BancaResponseDTO } from './banca';
+import { CargoResponseDTO } from './cargo';
+
 /** DTO de resposta (como vem do backend). */
 export interface QuestaoResponseDTO {
   id: number;
@@ -8,12 +16,12 @@ export interface QuestaoResponseDTO {
   alternativaD: string;
   alternativaE: string;
   respostaCorreta: string;
-  materia: string;
-  assunto: string;
-  topico: string;
-  orgao: string;
-  banca: string;
-  cargo: string;
+  materia: Materia; 
+  assunto: Assunto;
+  topico: Topico;
+  orgao: Orgao;
+  banca: Banca;
+  cargo: Cargo;
   ano: number;
   createdAt?: string;
   updatedAt?: string;

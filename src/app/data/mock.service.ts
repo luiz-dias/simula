@@ -56,12 +56,12 @@ export class MockService {
       alternativaD: 'Não há efeito vinculante.',
       alternativaE: 'Somente partidos podem propor.',
       respostaCorreta: 'B',
-      materia: 'Direito Constitucional',
-      assunto: 'Controle de Constitucionalidade',
-      topico: 'ADI e ADC',
-      orgao: 'TCU',
-      banca: 'Cebraspe',
-      cargo: 'Analista',
+      materia: { id: 1, nome: 'Direito Constitucional', createdAt: '', updatedAt: '' },
+      assunto: { id: 1, nome: 'Controle de Constitucionalidade', materiaId: 1, materia: { id: 1, nome: 'Direito Constitucional', createdAt: '', updatedAt: '' }, createdAt: '', updatedAt: '' },
+      topico: { id: 1, nome: 'ADI e ADC', assunto: { id: 1, nome: 'Controle de Constitucionalidade', materiaId: 1, materia: { id: 1, nome: 'Direito Constitucional', createdAt: '', updatedAt: '' }, createdAt: '', updatedAt: '' } },
+      orgao: { id: 1, nome: 'TCU', sigla: 'TCU' },
+      banca: { id: 1, nome: 'Cebraspe', sigla: 'CEB' },
+      cargo: { id: 1, nome: 'Analista', orgao: { id: 1, nome: 'TCU', sigla: 'TCU' } },
       ano: 2024
     },
     {
@@ -73,12 +73,12 @@ export class MockService {
       alternativaD: 'Há delegação de competência.',
       alternativaE: 'Há vacância do cargo.',
       respostaCorreta: 'B',
-      materia: 'Direito Administrativo',
-      assunto: 'Atos Administrativos',
-      topico: 'Anulação e Revogação',
-      orgao: 'BACEN',
-      banca: 'FGV',
-      cargo: 'Técnico',
+      materia: { id: 2, nome: 'Direito Administrativo', createdAt: '', updatedAt: '' },
+      assunto: { id: 2, nome: 'Atos Administrativos', materiaId: 2, materia: { id: 2, nome: 'Direito Administrativo', createdAt: '', updatedAt: '' }, createdAt: '', updatedAt: '' },
+      topico: { id: 2, nome: 'Anulação e Revogação', assunto: { id: 2, nome: 'Atos Administrativos', materiaId: 2, materia: { id: 2, nome: 'Direito Administrativo', createdAt: '', updatedAt: '' }, createdAt: '', updatedAt: '' } },
+      orgao: { id: 2, nome: 'BACEN', sigla: 'BACEN' },
+      banca: { id: 2, nome: 'FGV', sigla: 'FGV' },  
+      cargo: { id: 2, nome: 'Técnico', orgao: { id: 2, nome: 'BACEN', sigla: 'BACEN' } },
       ano: 2023
     }
   ];

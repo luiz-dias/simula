@@ -8,13 +8,13 @@
 
 <mat-card>
   <mat-card-content>
-    <h3>{{ questao.enunciado }}</h3>
+    <h3>{{ questao?.enunciado }}</h3>
     <div class="alternativas">
-      <p>A) {{ questao.alternativaA }}</p>
-      <p>B) {{ questao.alternativaB }}</p>
-      <p>C) {{ questao.alternativaC }}</p>
-      <p>D) {{ questao.alternativaD }}</p>
-      <p>E) {{ questao.alternativaE }}</p>
+      <p>A) {{ questao?.alternativaA }}</p>
+      <p>B) {{ questao?.alternativaB }}</p>
+      <p>C) {{ questao?.alternativaC }}</p>
+      <p>D) {{ questao?.alternativaD }}</p>
+      <p>E) {{ questao?.alternativaE }}</p>
     </div>
 
     <mat-divider></mat-divider>
@@ -22,35 +22,35 @@
     <div class="grid grid-3">
       <div>
         <strong>Matéria</strong>
-        <p>{{ questao.materia }}</p>
+        <p>{{ questao?.materia?.nome }}</p>
       </div>
       <div>
         <strong>Assunto</strong>
-        <p>{{ questao.assunto }}</p>
+        <p>{{ questao?.assunto?.nome }}</p>
       </div>
       <div>
         <strong>Tópico</strong>
-        <p>{{ questao.topico }}</p>
+        <p>{{ questao?.topico?.nome }}</p>
       </div>
       <div>
         <strong>Órgão</strong>
-        <p>{{ questao.orgao }}</p>
+        <p>{{ questao?.orgao?.nome }}</p>
       </div>
       <div>
         <strong>Banca</strong>
-        <p>{{ questao.banca }}</p>
+        <p>{{ questao?.banca?.nome }}</p>
       </div>
       <div>
         <strong>Cargo</strong>
-        <p>{{ questao.cargo }}</p>
+        <p>{{ questao?.cargo?.nome }}</p>
       </div>
       <div>
         <strong>Ano</strong>
-        <p>{{ questao.ano }}</p>
+        <p>{{ questao?.ano }}</p>
       </div>
       <div>
         <strong>Resposta correta</strong>
-        <p>{{ questao.respostaCorreta }}</p>
+        <p>{{ questao?.respostaCorreta }}</p>
       </div>
     </div>
   </mat-card-content>
