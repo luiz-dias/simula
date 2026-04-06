@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MockService } from '../../../data/mock.service';
-import {  Banca, BancaResponseDTO } from '../../../models/entities';
+import { Banca } from '../../../models/entities';
 import { COMMON_IMPORTS, MATERIAL_IMPORTS } from '../../../shared/ui';
 import { BancasService } from '../services/bancas.service';
 
@@ -22,8 +21,8 @@ export class BancasListComponent implements OnInit{
 
   
   carregar(): void {
-    this.bancasService.listar().subscribe((bancas) => {
-      this.bancas = bancas;
+    this.bancasService.listar(0, 500).subscribe((page) => {
+      this.bancas = page.content ?? [];
     });
   }
 

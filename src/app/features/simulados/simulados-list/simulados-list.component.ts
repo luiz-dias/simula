@@ -36,6 +36,6 @@ export class SimuladosListComponent implements OnInit {
     this.router.navigate(['/simulados', simulado.id]);
   }
   novo(): void {
-    this.router.navigate(['/simulados/novo']);
+    this.router.navigate(['/simulados/gerar']);
   }
 }

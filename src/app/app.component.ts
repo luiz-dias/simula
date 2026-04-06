@@ -13,12 +13,12 @@ export class AppComponent {
 
   navSections = [
     {
-      title: 'Principais',
+      title: 'Resumo',
       links: [
-        { label: 'Dashboard', path: '/dashboard', icon: 'dashboard' },
-        { label: 'Visão Completa', path: '/visao-completa', icon: 'insights' },
-        { label: 'Montar Simulado', path: '/montar-simulado', icon: 'playlist_add' },
-        { label: 'Painel de Controle', path: '/painel-controle', icon: 'grid_view' }
+    //    { label: 'Dashboard', path: '/dashboard', icon: 'dashboard' },
+        { label: 'Visão Completa', path: '/visao-completa', icon: 'insights' }
+        // { label: 'Montar Simulado', path: '/simulados/gerar', icon: 'playlist_add' },
+       // { label: 'Painel de Controle', path: '/painel-controle', icon: 'grid_view' }
       ]
     },
     {
@@ -36,8 +36,9 @@ export class AppComponent {
     {
       title: 'Simulados',
       links: [
+        { label: 'Montar Simulado', path: '/simulados/gerar', icon: 'playlist_add' },
         { label: 'Lista de Simulados', path: '/simulados', icon: 'assignment' },
-        { label: 'Backup/Exportar', path: '/backup', icon: 'cloud_download' }
+        { label: 'Backup/Exportar', path: '/export', icon: 'cloud_download' }
       ]
     }
   ];

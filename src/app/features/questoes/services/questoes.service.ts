@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { QuestaoRequestDTO, QuestaoResponseDTO, PageResponse, Questao } from '../../../models/entities';
+import { Questao, PageResponse, QuestaoResponseDTO } from '../../../models/entities';
 
 const API_URL = 'http://localhost:8080/api/questoes';
 

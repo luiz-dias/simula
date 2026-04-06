@@ -1,7 +1,6 @@
 import { Component, inject,OnInit} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MockService } from '../../../data/mock.service';
 import { COMMON_IMPORTS, FORM_IMPORTS, MATERIAL_IMPORTS } from '../../../shared/ui';
 import { Assunto } from '../../../models/assunto';
 import { AssuntosService } from '../../assuntos/services/assuntos.service';

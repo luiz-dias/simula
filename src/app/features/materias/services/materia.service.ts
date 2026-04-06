@@ -23,6 +23,13 @@ export class MateriaService {
       .pipe(map((res) => res.content));
   }
 
+  /** Página bruta (ex.: contagem em dashboard via `totalElements`). */
+  listarPagina(page = 0, size = 20): Observable<PageResponse<MateriaResponseDTO>> {
+    return this.http.get<PageResponse<MateriaResponseDTO>>(this.apiUrl, {
+      params: { page: String(page), size: String(size) }
+    });
+  }
+
 
   buscarPorId(id: number): Observable<MateriaResponseDTO> {
     return this.http.get<MateriaResponseDTO>(`${this.apiUrl}/${id}`);
@@ -39,8 +46,7 @@ export class MateriaService {
   }
 
 
-  deletar(id: number, cascade = false): Observable<void> {
-    const params = cascade ? { params: { cascade: 'true' } } : {};
-    return this.http.delete<void>(`${this.apiUrl}/${id}`, params);
+  deletar(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

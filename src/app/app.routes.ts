@@ -9,7 +9,7 @@ import { CargosListComponent } from './features/cargos/cargos-list/cargos-list.c
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { MateriasFormComponent } from './features/materias/materias-form/materias-form.component';
 import { MateriasListComponent } from './features/materias/materias-list/materias-list.component';
-import { MontarSimuladoComponent } from './features/montar-simulado/montar-simulado.component';
+import { MontarSimuladoComponent } from './features/simulados/montar-simulado/montar-simulado.component';
 import { OrgaosFormComponent } from './features/orgaos/orgaos-form/orgaos-form.component';
 import { OrgaosListComponent } from './features/orgaos/orgaos-list/orgaos-list.component';
 import { PainelControleComponent } from './features/painel-controle/painel-controle.component';
@@ -26,7 +26,9 @@ export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'visao-completa', component: VisaoCompletaComponent },
-  { path: 'montar-simulado', component: MontarSimuladoComponent },
+  /** Alinhado a POST /api/simulados/gerar (deve vir antes de simulados/:id). */
+  { path: 'simulados/gerar', component: MontarSimuladoComponent },
+  { path: 'montar-simulado', redirectTo: 'simulados/gerar', pathMatch: 'full' },
   { path: 'painel-controle', component: PainelControleComponent },
   { path: 'questoes', component: QuestoesListComponent },
   { path: 'questoes/novo', component: QuestoesFormComponent },
@@ -51,5 +53,7 @@ export const routes: Routes = [
   { path: 'cargos/:id', component: CargosFormComponent },
   { path: 'simulados', component: SimuladosListComponent },
   { path: 'simulados/:id', component: SimuladosViewComponent },
-  { path: 'backup', component: BackupExportComponent }
+  /** Alinhado a GET /api/export/csv */
+  { path: 'export', component: BackupExportComponent },
+  { path: 'backup', redirectTo: 'export', pathMatch: 'full' }
 ];

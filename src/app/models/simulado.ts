@@ -1,9 +1,12 @@
-/** DTO de resposta (como vem do backend). */
+import { Orgao } from './orgao';
+import { Cargo } from './cargo';
+
+/** DTO de resposta (como vem do backend — órgão e cargo aninhados). */
 export interface SimuladoResponseDTO {
   id: number;
   titulo: string;
-  cargo: string;
-  orgao: string;
+  cargo: Cargo;
+  orgao: Orgao;
   ano: number;
   dataCriacao: string;
   ordemMaterias: string[];
@@ -17,6 +20,9 @@ export interface SimuladoItemRequestDTO {
   materiaId: number;
   assuntoId: number | null;
   topicoId: number | null;
+  /** Nome usado por parte do backend para validação/persistência. */
+  quantidade?: number;
+  /** Nome legado/alternativo que alguns fluxos ainda usam. */
   quantidadeQuestoes: number;
   nivel: 'materia' | 'assunto' | 'topico';
 }
@@ -24,12 +30,18 @@ export interface SimuladoItemRequestDTO {
 /** DTO de entrada (request) para criação e atualização. */
 export interface SimuladoRequestDTO {
   titulo: string;
-  cargo: string;
-  orgao: string;
   ano: number;
-  ordemMaterias: string[];
-  /** Detalhamento por matéria/assunto/tópico com quantidade de questões (opcional no backend). */
+  /** IDs das matérias na ordem (Long[] no backend). */
+  ordemMaterias: number[];
   itens?: SimuladoItemRequestDTO[];
+  /** Nome do campo no backend (Bean Validation); espelha `itens` quando a API exige este nome. */
+  configuracaoMaterias?: SimuladoItemRequestDTO[];
+  /** FK — necessário para persistir vínculo com Cargo/Órgão no JPA. */
+  orgaoId?: number | null;
+  cargoId?: number | null;
+  /** Texto auxiliar (sigla / nome), se o backend ainda usar para exibição ou legado. */
+  orgao?: string;
+  cargo?: string;
 }
 
 /** Alias para compatibilidade. */

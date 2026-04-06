@@ -1,37 +1,34 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
-import { Orgao, OrgaoRequestDTO, OrgaoResponseDTO, PageResponse } from '../../../models/entities';
+import { Observable } from 'rxjs';
+import { Orgao, OrgaoRequestDTO, PageResponse } from '../../../models/entities';
 
-
+const API_URL = 'http://localhost:8080/api/orgaos';
 
 @Injectable({ providedIn: 'root' })
 export class OrgaosService {
-  private readonly apiUrl = 'http://localhost:8080/api/orgaos';
   constructor(private readonly http: HttpClient) {}
 
-  listar(): Observable<OrgaoResponseDTO[]> {
-    return this.http.get<PageResponse<OrgaoResponseDTO>>(this.apiUrl, {
-      params: { page: '0', size: '100' }
-    }).pipe(map((res) => res.content));
+  listar(page = 0, size = 20): Observable<PageResponse<Orgao>> {
+    return this.http.get<PageResponse<Orgao>>(API_URL, {
+      params: { page: String(page), size: String(size) }
+    });
   }
 
-  buscarPorId(id: number): Observable<OrgaoResponseDTO> {
-    return this.http.get<OrgaoResponseDTO>(`${this.apiUrl}/${id}`);
+  buscarPorId(id: number): Observable<Orgao> {
+    return this.http.get<Orgao>(`${API_URL}/${id}`);
   }
 
-  criar(dto: OrgaoRequestDTO): Observable<OrgaoResponseDTO> {
-    alert("CRIANDO");
-    return this.http.post<OrgaoResponseDTO>(this.apiUrl, dto);
+  criar(dto: OrgaoRequestDTO): Observable<Orgao> {
+    return this.http.post<Orgao>(API_URL, dto);
   }
 
-  atualizar(id: number, dto: OrgaoRequestDTO): Observable<OrgaoResponseDTO> {
-    alert("ATUALIZANDO");
-    return this.http.put<OrgaoResponseDTO>(`${this.apiUrl}/${id}`, dto);
+  atualizar(id: number, dto: OrgaoRequestDTO): Observable<Orgao> {
+    return this.http.put<Orgao>(`${API_URL}/${id}`, dto);
   }
 
   deletar(id: number, cascade = false): Observable<void> {
-    const params = cascade ? { params: { cascade: 'true' } } : {};
-    return this.http.delete<void>(`${this.apiUrl}/${id}`, params);
-  } 
+    const options = cascade ? { params: { cascade: 'true' } } : {};
+    return this.http.delete<void>(`${API_URL}/${id}`, options);
+  }
 }

@@ -16,6 +16,6 @@ export class PainelControleComponent {
     { label: 'Simulados por filtros', path: '/simulados', icon: 'assignment' },
     { label: 'CRUD de Órgãos', path: '/orgaos', icon: 'account_balance' },
     { label: 'CRUD de Cargos', path: '/cargos', icon: 'badge' },
-    { label: 'Backup e Exportação', path: '/backup', icon: 'cloud_download' }
+    { label: 'Backup e Exportação', path: '/export', icon: 'cloud_download' }
   ];
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MockService } from '../../../data/mock.service';
-import { Cargo, CargoResponseDTO } from '../../../models/entities';
+import { CargoResponseDTO } from '../../../models/entities';
 import { COMMON_IMPORTS, MATERIAL_IMPORTS } from '../../../shared/ui';
 import { CargosService } from '../services/cargos.service';
 
@@ -21,8 +20,8 @@ export class CargosListComponent implements OnInit {
   }
 
   carregar(): void {
-    this.cargosService.listar().subscribe((cargos) => {
-      this.cargos = cargos;
+    this.cargosService.listar(0, 500).subscribe((page) => {
+      this.cargos = page.content ?? [];
     });
   }
 

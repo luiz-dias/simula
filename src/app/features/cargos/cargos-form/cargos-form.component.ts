@@ -1,6 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { MockService } from '../../../data/mock.service';
 import { COMMON_IMPORTS, FORM_IMPORTS, MATERIAL_IMPORTS } from '../../../shared/ui';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CargosService } from '../services/cargos.service';
@@ -29,9 +28,25 @@ export class CargosFormComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.orgaosService.listar().subscribe((orgaos) => {
-      this.orgaos = orgaos;
+    this.orgaosService.listar(0, 500).subscribe((page) => {
+      this.orgaos = page.content ?? [];
     });
+
+    const idParam = this.route.snapshot.paramMap.get('id');
+    if (idParam) {
+      this.id = Number(idParam);
+      this.cargosService.buscarPorId(this.id).subscribe({
+        next: (cargo) => {
+          this.form.patchValue({
+            nome: cargo.nome,
+            orgaoId:
+              cargo.orgaoId ??
+              (typeof cargo.orgao === 'object' && cargo.orgao != null ? cargo.orgao.id : null)
+          });
+        },
+        error: (err) => console.error('Erro ao carregar cargo', err)
+      });
+    }
   }
 
   salvar(): void {

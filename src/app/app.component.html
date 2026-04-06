@@ -8,20 +8,28 @@
       </div>
     </div>
 
-    <div class="nav-section" *ngFor="let section of navSections">
-      <div class="nav-title">{{ section.title }}</div>
-      <mat-nav-list>
-        <a
-          mat-list-item
-          *ngFor="let link of section.links"
-          [routerLink]="link.path"
-          routerLinkActive="active-link"
-        >
-          <mat-icon matListItemIcon>{{ link.icon }}</mat-icon>
-          <span matListItemTitle>{{ link.label }}</span>
-        </a>
-      </mat-nav-list>
-    </div>
+    <mat-accordion class="nav-accordion" displayMode="flat" multi="true">
+      <mat-expansion-panel
+        *ngFor="let section of navSections"
+        class="nav-panel"
+        [expanded]="true"
+      >
+        <mat-expansion-panel-header collapsedHeight="40px" expandedHeight="40px">
+          <mat-panel-title class="nav-panel-title">{{ section.title }}</mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-nav-list class="nav-panel-list">
+          <a
+            mat-list-item
+            *ngFor="let link of section.links"
+            [routerLink]="link.path"
+            routerLinkActive="active-link"
+          >
+            <mat-icon matListItemIcon>{{ link.icon }}</mat-icon>
+            <span matListItemTitle>{{ link.label }}</span>
+          </a>
+        </mat-nav-list>
+      </mat-expansion-panel>
+    </mat-accordion>
   </mat-sidenav>
 
   <mat-sidenav-content>

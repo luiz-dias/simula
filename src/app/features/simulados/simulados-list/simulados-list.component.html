@@ -3,7 +3,7 @@
     <div class="page-title">Simulados</div>
     <div class="page-subtitle">Filtre por cargo, órgão e ano</div>
   </div>
-  <button mat-stroked-button color="primary" routerLink="/montar-simulado">
+  <button mat-stroked-button color="primary" routerLink="/simulados/gerar">
     Montar simulado
   </button>
 </div>
@@ -15,7 +15,7 @@
         <mat-label>Órgão</mat-label>
         <input matInput placeholder="Ex: TCU" />
       </mat-form-field>
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline"> 
         <mat-label>Cargo</mat-label>
         <input matInput placeholder="Ex: Analista" />
       </mat-form-field>
@@ -32,11 +32,11 @@
       </ng-container>
       <ng-container matColumnDef="orgao">
         <th mat-header-cell *matHeaderCellDef>Órgão</th>
-        <td mat-cell *matCellDef="let simulado">{{ simulado.orgao }}</td>
+        <td mat-cell *matCellDef="let simulado">{{ simulado.orgao?.nome }}</td>
       </ng-container>
       <ng-container matColumnDef="cargo">
         <th mat-header-cell *matHeaderCellDef>Cargo</th>
-        <td mat-cell *matCellDef="let simulado">{{ simulado.cargo }}</td>
+        <td mat-cell *matCellDef="let simulado">{{ simulado.cargo?.nome }}</td>
       </ng-container>
       <ng-container matColumnDef="ano">
         <th mat-header-cell *matHeaderCellDef>Ano</th>

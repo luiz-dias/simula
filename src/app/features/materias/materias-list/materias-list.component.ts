@@ -21,7 +21,7 @@ export class MateriasListComponent implements OnInit {
 
 
 
-  carregar(): void {
+  carregar(): void { 
     this.materiaService.listar().subscribe((materias) => {
       this.materias = materias;
     });
@@ -38,7 +38,7 @@ export class MateriasListComponent implements OnInit {
           const msg = 'Esta matéria possui assuntos vinculados. Deseja excluir mesmo assim? ' +
             'Serão excluídos também os assuntos, tópicos e questões vinculados.';
           if (!confirm(msg)) return;
-          this.materiaService.deletar(materia.id, true).subscribe({
+          this.materiaService.deletar(materia.id).subscribe({
             next: () => this.carregar(),
             error: (e) => console.error('Erro ao excluir matéria', e)
           });

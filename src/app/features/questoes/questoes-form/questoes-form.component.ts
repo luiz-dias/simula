@@ -74,15 +74,15 @@ export class QuestoesFormComponent implements OnInit {
     const tipoId = this.form.get('tipoId')?.value;
     const tipo = this.tipos.find((t) => t.id === tipoId);
     const nome = tipo?.nome?.toLowerCase() ?? '';
-    return nome.includes('v/f');
+    return nome.includes('certo ou errado');
   }
   ngOnInit(): void {
     this.materiaService.listar().subscribe((materias) => (this.materias = materias));
     this.assuntosService.listar().subscribe((assuntos) => (this.assuntos = assuntos));
     this.topicosService.listar().subscribe((topicos) => (this.topicos = topicos));
-    this.orgaosService.listar().subscribe((orgaos) => (this.orgaos = orgaos));
-    this.bancasService.listar().subscribe((bancas) => (this.bancas = bancas));
-    this.cargosService.listar().subscribe((cargos) => (this.cargos = cargos));
+    this.orgaosService.listar(0, 500).subscribe((page) => (this.orgaos = page.content ?? []));
+    this.bancasService.listar(0, 500).subscribe((page) => (this.bancas = page.content ?? []));
+    this.cargosService.listar(0, 500).subscribe((page) => (this.cargos = page.content ?? []));
     this.tiposService.listar().subscribe((tipos) => (this.tipos = tipos));
   }
   
@@ -93,8 +93,8 @@ export class QuestoesFormComponent implements OnInit {
 
     const payload = { ...raw };
     if (this.ehVouF) {
-      payload.alternativaA = 'V';
-      payload.alternativaB = 'F';
+      payload.alternativaA = 'Certo';
+      payload.alternativaB = 'Errado';
       payload.alternativaC = '';
       payload.alternativaD = '';
       payload.alternativaE = '';

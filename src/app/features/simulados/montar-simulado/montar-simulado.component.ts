@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import {
@@ -8,8 +9,9 @@ import {
   Cargo,
   MateriaResponseDTO,
   AssuntoResponseDTO,
-  TopicoResponseDTO
-} from '../../models/entities';
+  TopicoResponseDTO,
+  SimuladoRequestDTO
+} from '../../../models/entities';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,12 +19,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MateriaService } from '../materias/services/materia.service';
-import { AssuntosService } from '../assuntos/services/assuntos.service';
-import { TopicosService } from '../topicos/services/topicos.service';
-import { OrgaosService } from '../orgaos/services/orgaos.service';
-import { CargosService } from '../cargos/services/cargos.service';
-import { SimuladosService } from '../simulados/services/simulados.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MateriaService } from '../../materias/services/materia.service';
+import { AssuntosService } from '../../assuntos/services/assuntos.service';
+import { TopicosService } from '../../topicos/services/topicos.service';
+import { OrgaosService } from '../../orgaos/services/orgaos.service';
+import { CargosService } from '../../cargos/services/cargos.service';
+import { SimuladosService } from '../services/simulados.service';
 
 export type NivelDetalhe = 'materia' | 'assunto' | 'topico';
 
@@ -47,6 +50,7 @@ export interface ItemSimulado {
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
+    MatSnackBarModule,
     DragDropModule
   ],
   templateUrl: './montar-simulado.component.html',
@@ -61,6 +65,7 @@ export class MontarSimuladoComponent implements OnInit {
   private readonly cargosService = inject(CargosService);
   private readonly simuladosService = inject(SimuladosService);
   private readonly router = inject(Router);
+  private readonly snackBar = inject(MatSnackBar);
 
   materias: MateriaResponseDTO[] = [];
   assuntos: AssuntoResponseDTO[] = [];
@@ -88,8 +93,8 @@ export class MontarSimuladoComponent implements OnInit {
     this.materiaService.listar().subscribe((m) => (this.materias = m));
     this.assuntosService.listar().subscribe((a) => (this.assuntos = a));
     this.topicosService.listar().subscribe((t) => (this.topicos = t));
-    this.orgaosService.listar().subscribe((o) => (this.orgaos = o));
-    this.cargosService.listar().subscribe((c) => (this.cargos = c));
+    this.orgaosService.listar(0, 500).subscribe((o) => (this.orgaos = o.content ?? []));
+    this.cargosService.listar(0, 500).subscribe((c) => (this.cargos = c.content ?? []));
 
     this.form.get('materiaId')?.valueChanges.subscribe(() => {
       this.form.patchValue({ assuntoId: null, topicoId: null }, { emitEvent: false });
@@ -191,30 +196,61 @@ export class MontarSimuladoComponent implements OnInit {
     const raw = this.form.getRawValue();
     if (!raw) return;
 
+    if (this.itens.length === 0) {
+      this.snackBar.open(
+        'Adicione ao menos um item ao simulado (matéria e quantidade) em “Adicionar ao simulado”.',
+        'OK',
+        { duration: 9000 }
+      );
+      return;
+    }
+
     const orgao = this.orgaos.find((o) => o.id === raw.orgaoId);
     const cargo = this.cargos.find((c) => c.id === raw.cargoId);
 
-    const ordemMaterias = [...new Set(this.itens.map((i) => i.materia.nome))];
+    const ordemMaterias = [...new Set(this.itens.map((i) => i.materia.id))];
     const itensPayload = this.itens.map((i) => ({
       materiaId: i.materia.id,
       assuntoId: i.assunto?.id ?? null,
       topicoId: i.topico?.id ?? null,
+      quantidade: i.quantidadeQuestoes,
       quantidadeQuestoes: i.quantidadeQuestoes,
       nivel: i.nivel
     }));
 
-    const dto = {
+    const dto: SimuladoRequestDTO = {
       titulo: raw.titulo ?? 'Simulado',
-      orgao: orgao?.sigla ?? '',
-      cargo: cargo?.nome ?? '',
       ano: raw.ano ?? new Date().getFullYear(),
       ordemMaterias,
-      itens: itensPayload
+      itens: itensPayload,
+      configuracaoMaterias: itensPayload,
+      orgaoId: raw.orgaoId,
+      cargoId: raw.cargoId,
+      orgao: orgao?.sigla ?? '',
+      cargo: cargo?.nome ?? ''
     };
 
-    this.simuladosService.criar(dto).subscribe({
+    this.simuladosService.gerar(dto).subscribe({
       next: () => this.router.navigate(['/simulados']),
-      error: (err: unknown) => console.error('Erro ao salvar simulado', err)
+      error: (err: unknown) => {
+        console.error('Erro ao salvar simulado', err);
+        const msg = this.mensagemErroSalvar(err);
+        this.snackBar.open(msg, 'Fechar', { duration: 12000 });
+      }
     });
+  }
+
+  private mensagemErroSalvar(err: unknown): string {
+    if (err instanceof HttpErrorResponse) {
+      const body = err.error;
+      if (body && typeof body === 'object' && 'message' in body) {
+        const m = (body as { message: unknown }).message;
+        if (typeof m === 'string' && m.trim()) return m.trim();
+      }
+      if (typeof err.error === 'string' && err.error.trim()) return err.error.trim();
+      if (err.status === 0) return 'Sem conexão com o servidor. Verifique se a API está em execução.';
+      return `Não foi possível salvar (${err.status}).`;
+    }
+    return 'Não foi possível salvar o simulado.';
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Simulado, SimuladoRequestDTO, PageResponse } from '../../../models/entities';
+import { Simulado, PageResponse, SimuladoRequestDTO } from '../../../models/entities';
 
 const API_URL = 'http://localhost:8080/api/simulados';
 
@@ -15,11 +15,23 @@ export class SimuladosService {
     });
   }
 
-  criar(dto: SimuladoRequestDTO): Observable<Simulado> {
-    return this.http.post<Simulado>(API_URL, dto);
+  buscarPorId(id: number): Observable<Simulado> {
+    return this.http.get<Simulado>(`${API_URL}/${id}`);
+  }
+
+  /** Alinhado a POST /api/simulados/gerar */
+  gerar(dto: SimuladoRequestDTO): Observable<Simulado> {
+    return this.http.post<Simulado>(`${API_URL}/gerar`, dto);
   }
 
   deletar(id: number): Observable<void> {
     return this.http.delete<void>(`${API_URL}/${id}`);
+  }
+
+  baixarSimulado(id: number, formato: 'pdf' | 'docx'): Observable<Blob> {
+    return this.http.get(`${API_URL}/${id}/download`, {
+      params: { formato },
+      responseType: 'blob'
+    });
   }
 }

@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import { MockService } from '../../../data/mock.service';
-import { Orgao, OrgaoResponseDTO } from '../../../models/entities';
+import { Component, OnInit } from '@angular/core';
+import { OrgaoResponseDTO } from '../../../models/entities';
 import { COMMON_IMPORTS, MATERIAL_IMPORTS } from '../../../shared/ui';
 import { OrgaosService } from '../services/orgaos.service';
 
@@ -10,7 +9,7 @@ import { OrgaosService } from '../services/orgaos.service';
   templateUrl: './orgaos-list.component.html',
   styleUrl: './orgaos-list.component.scss'
 })
-export class OrgaosListComponent {
+export class OrgaosListComponent implements OnInit {
   orgaos: OrgaoResponseDTO[] = [];
   displayedColumns = ['id', 'nome', 'sigla', 'acoes'];
 
@@ -21,8 +20,8 @@ export class OrgaosListComponent {
   }
 
   carregar(): void {
-    this.orgaosService.listar().subscribe((orgaos) => {
-      this.orgaos = orgaos;
+    this.orgaosService.listar(0, 500).subscribe((page) => {
+      this.orgaos = page.content ?? [];
     });
   }
 
